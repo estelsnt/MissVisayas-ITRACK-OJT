@@ -1,0 +1,129 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container{
+    min-height: 100vh;
+    display: flex;
+    background: rgb(166,201,217);
+    background: linear-gradient(10deg, rgb(72, 52, 201) 0%, rgb(171, 162, 227) 36%, rgb(255, 255, 255) 100%);
+}
+
+.container .header{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 180px;
+}
+
+.container .header h1{
+    font-size: 70px;
+    font-weight: 600;
+    color: rgb(77, 52, 201);
+    background-clip: text;
+    -webkit-background-clip: text;
+}   
+
+.container .header h2{
+    font-size: 20px;
+    font-weight: 400;
+    color: rgb(77, 52, 201);
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.container .content{
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.container .content .loginPanel{
+    background: rgba(255, 255, 255, 0.353);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 50px;
+}
+
+.container .content .loginPanel input{
+    background-color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.5em;
+    padding: 10px 25px;
+    color: #3c3c3c;
+}
+
+.container .content .loginPanel button{
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: rgb(77, 52, 201);
+    color: #fff;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 25px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.container .content .loginPanel button:hover{
+    background-color: rgb(95, 67, 238);
+}
+
+@media (max-width: 950px) {
+    .container{
+        flex-direction: column;
+    }
+    .container .header{
+        align-items: center;
+        padding: 0;
+        flex: 0.5;
+        padding-top: 20px;
+    }
+    .container .header h1, .container .header h2{
+        margin: 0;
+    }
+    .container .content{
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .container .content .loginPanel{
+        margin: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .container .header{
+        flex: 1;
+    }
+    .container .header h1{
+        font-size: 30px;
+    }
+    .container .header h2{
+        font-size: 10px;
+    }
+    .container .content{
+        flex: 7;
+    }
+    .container .content .loginPanel{
+        padding: 50px 25px;
+    }
+    .container .content .loginPanel input{
+        font-size: 15px;
+    }
+    .container .content .loginPanel button{
+        font-size: 15px;
+    }
+}

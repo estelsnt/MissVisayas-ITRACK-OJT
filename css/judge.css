@@ -1,0 +1,226 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: rgb(166,201,217);
+    background: linear-gradient(10deg, rgb(72, 52, 201) 0%, rgb(142, 130, 220) 36%, rgb(255, 255, 255) 100%);
+}
+
+.container .header{
+    display: flex;
+}
+
+.header h1{
+    margin-left: 40px;
+    flex: 1;
+    color: rgb(77, 52, 201);
+    font-size: 40px;
+}
+
+.header .profileContainer{
+    position: relative;
+    margin: 20px 40px;
+}
+
+.header .profileContainer .profileDropdown{
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: 10px;
+    z-index: 500;
+}
+
+.header .profileContainer:hover .profileDropdown{
+    display: block;
+}
+
+.profileDropdown #userName{
+    display: block;
+    font-size: 1em;
+    padding-left: 10px;
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(72, 52, 201);
+}
+
+.profileDropdown #logout{
+    font-size: 1.3em;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.profileDropdown #logout:hover{
+    background-color: rgb(72, 52, 201);
+    color: #fff;
+}
+
+.header .profileContainer #user{
+    height: 50px;
+    width: 50px;
+}
+
+.container .content{
+    display: flex;
+    flex-direction: column;
+}
+
+.container .content .subEventsContainer{
+    flex: 1;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.content .subEvents{
+    margin: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.353);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    cursor: pointer;
+}
+
+.content .subEvents:hover{
+    background-color: rgb(72, 52, 201) !important;
+    color: #fff !important;
+}
+
+.content .subEvents span{
+    font-size: 1.3em;
+    margin: 10px;
+}
+
+.content .contestantsContainer{
+    margin: 5px 20px;
+    background: rgba(255, 255, 255, 0.353);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    min-height: 90vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content #subEventName{
+    font-size: 30px;
+    margin-left: 100px;
+    display: block;
+    flex: 1;
+}
+
+.content .contestantsContainer .selection{
+    cursor: pointer;
+}
+
+.content .contestantsContainer .selection:hover{
+    color: #fff;
+    background-color: rgba(72, 52, 201);
+    box-shadow: 0 100px 100px 0 rgba(226, 226, 232, 0.856);
+}
+
+.content .contestantsContainer .contestant{
+    background: rgba(255, 255, 255, 0.353);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    height: 310px;
+    width: 200px;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.standing{
+    display: block;
+    font-size: 1em;
+    text-align: center;
+}
+
+.contestant .contestantPic{
+    height: 150px;
+    width: 150px;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+
+.contestant .contestantName{
+    display: block;
+    margin: 5px 10px;
+    font-size: 0.9em;
+}
+
+.contestant .totalScoreEarned{
+    display: block;
+    margin: 5px 10px;   
+    font-size: 0.7em;
+}
+
+.contestant .scorePanel{
+    margin-top: auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.contestant label{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.contestant select{
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(72, 52, 201);
+    color: #fff;
+    padding: 2px 5px;
+    margin-left: 10px;
+}
+
+.contestant .edit{
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.contestant .edit:hover{
+    height: 25px;
+    width: 25px;
+}
+
+.contestant .score{
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.contestant .tps{
+    margin-bottom: 5px;
+}
+
+.contestant .total{
+    font-weight: bold;
+}
+
+.footer{
+    height: 200px;
+}
+
