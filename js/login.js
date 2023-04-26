@@ -6,7 +6,7 @@ $("#login").click(()=>{
         return;
     }
     //user authentication
-    fetch("./php/auth.php", {
+    fetch("./php/auth.php", {                   //search from judges table
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -17,17 +17,36 @@ $("#login").click(()=>{
     })
     .then(res=>{return res.json()})
     .then(data=>{
-        console.log(data);
+        console.log(data);                          
         if(data.status == "success"){
             location.href = "judge.html";
         }else{
-            $("#code").css({border: "1px solid red"});
+            fetch("./php/authTabulator.php", {              //search from organizer table
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    code: $("#code").val()
+                })
+            })
+            .then(res=>{return res.json()})
+            .then(data=>{
+                if(data.status == "success"){         
+                    location.href = "tabulator.html";
+                }else{
+                    $("#code").css({border: "3px solid red"});
+                    $("#code").val("");
+                }
+            })
+            .catch(error=>{console.error(error)});
         }
     })
     .catch(error=>{console.error(error)});
 });
 
 $("#code").keyup((e)=>{
+    $("#code").css({border: "none"});
     $("#code").val(sanitize($("#code").val()));
     if(e.keyCode == 13){
         $("#login").click();
