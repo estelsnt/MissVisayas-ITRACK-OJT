@@ -1,4 +1,7 @@
 let subEventSelected;
+let selectedTop5 = 0;
+let selectedTop3 = 0;
+let selected = [];
 
 $(window).on("load", ()=>{
     //default display
@@ -14,10 +17,10 @@ $(window).on("load", ()=>{
     })
     .then(res=>{return res.json()})
     .then(data=>{
-        if(data.id == "none"){
+        if(data[0].judgeID == "none"){
             location.href = "index.html";
         }
-        $("#userName").text(data.fullname);
+        $("#userName").text(data[0].fullname);
         //default tab to display
         loadTalentPortion();
     })
@@ -26,7 +29,7 @@ $(window).on("load", ()=>{
 
 //logout click
 $("#logout").click(()=>{
-    fetch("./php/logout.php", {
+    fetch("./php/logout.php", {             //clears session
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -84,13 +87,7 @@ $(".final3").click(()=>{
     clearSubEventSelection();
     $("#subEventName").text("Final 3");
     $(".final3").css({backgroundColor: "rgb(72, 52, 201)", color: "#fff"});
-});
-
-$(".tally").click(()=>{
-    subEventSelected = "tally";
-    clearSubEventSelection();
-    $("#subEventName").text("Tally");
-    $(".tally").css({backgroundColor: "rgb(72, 52, 201)", color: "#fff"});
+    loadTop3();
 });
 
 let clearSubEventSelection = function(){
@@ -103,12 +100,10 @@ let clearSubEventSelection = function(){
     $(".tally").css({backgroundColor: "rgb(255, 255, 255, 0.353)", color: "#000"});
 }
 
-//on loading contestants
-let loadTalentPortion = function(){                 //talent portion
+//talent portion
+let loadTalentPortion = function(){
     $(".contestantsContainer").empty();
-    //add loading screen
-
-    //fetch data from database
+    
     fetch("./php/getContestantsTalentPortion.php", {
         method: "POST",
         headers: {
@@ -118,23 +113,13 @@ let loadTalentPortion = function(){                 //talent portion
     .then(res=>{return res.json()})
     .then(data=>{
         console.log(data);
-        //array to hold ranks data to check for ties and null scores
-        let ranks = [];
         for(let i in data){
-            ranks.push({id: "standing"+data[i].contestantID, score: data[i].totalTalentPortionScore, given: data[i].talentPortionScore});
-            let ttps = null;
-            if(data[i].totalTalentPortionScore == null){
-                ttps = 0;
-            }else{
-                ttps = data[i].totalTalentPortionScore;
-            }
             //load data to DOM
             let elem = `
                 <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
                     <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
-                    <span class="totalScoreEarned">Total Score Earned: `+ttps+`% out of 100%</span>
                     <div class="scorePanel">
                         <label for="score">Score</label>
                         <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
@@ -160,81 +145,37 @@ let loadTalentPortion = function(){                 //talent portion
             //append to DOM
             $(".contestantsContainer").append(elem);
             $("#contestant"+data[i].contestantID).fadeIn();
-            //set total score earned
-            if(data[i].talentPortionScore == null){
-                $("#tps" + data[i].contestantID).val("0");
+            if(data[i].talentPortionScore == undefined){
+                $(".standing"+data[i].contestantID).text("rate this contestant")
             }else{
-                $("#tps" + data[i].contestantID).val(data[i].talentPortionScore);
+                $("#tps"+data[i].contestantID).val(data[i].talentPortionScore);
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
-            }
-        }
-        //determine ranking
-        for(let i in ranks){                //ties
-            if((+i + +1) >= ranks.length){
-                break;
-            }
-            if(ranks[i].score == ranks[+i + +1].score){
-                console.log("tie detected: " + ranks[i].id + " and " + ranks[+i + +1].id);
-                $("."+ranks[i].id).text("change scores to break ties");
-                $("."+ranks[+i + +1].id).text("change scores to break ties");
-            }
-        }
-        for(let i in ranks){ //ranking
-            if(ranks[i].given == undefined){    //no scores
-                $("."+ranks[i].id).text("rate this candidate"); 
-            }
-            //set rank number
-            if(!($("."+ranks[i].id).text() == "change scores to break ties" || $("."+ranks[i].id).text() == "rate this candidate")){
-                switch(+i + +1){
-                    case 1:
-                        $("."+ranks[i].id).text((+i + +1) + "st");
-                    break;
-                    case 2:
-                        $("."+ranks[i].id).text((+i + +1) + "nd");
-                    break;
-                    case 3:
-                        $("."+ranks[i].id).text((+i + +1) + "rd");
-                    break;
-                    default:
-                        $("."+ranks[i].id).text((+i + +1) + "th");
-                }
             }
         }
     })
     .catch(error=>{console.error(error)});
 }
 
-let loadSwimWear = function(){                  //swim wear
+//swimwear
+let loadSwimWear = function(){
     $(".contestantsContainer").empty();
-    //add loading screen
-
-    //fetch data from database
+    
     fetch("./php/getContestantsSwimWear.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
-        }
+        } 
     })
     .then(res=>{return res.json()})
     .then(data=>{
         console.log(data);
-        let ranks = [];
         for(let i in data){
-            //set ranking and total score earned on cards
-            ranks.push({id: "standing"+data[i].contestantID, score: data[i].totalSwimWearScore, given: data[i].swimWearScore});
-            let ttps = null;
-            if(data[i].totalSwimWearScore == null){
-                ttps = 0;
-            }else{
-                ttps = data[i].totalSwimWearScore;
-            }
             //load data to DOM
             let elem = `
                 <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
                     <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
-                    <span class="totalScoreEarned">Total Score Earned: `+ttps+`% out of 100%</span>
                     <div class="scorePanel">
                         <label for="score">Score</label>
                         <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
@@ -257,85 +198,40 @@ let loadSwimWear = function(){                  //swim wear
                     </div>
                 </div>
             `;
+            //append to DOM
             $(".contestantsContainer").append(elem);
             $("#contestant"+data[i].contestantID).fadeIn();
             if(data[i].swimWearScore == null){
-                $("#tps" + data[i].contestantID).val("0");
+                $(".standing"+data[i].contestantID).text("rate this contestant")
             }else{
-                $("#tps" + data[i].contestantID).val(data[i].swimWearScore);
+                $("#tps"+data[i].contestantID).val(data[i].swimWearScore);
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
-            }
-        }
-        //determine ranking
-        for(let i in ranks){                //ties
-            if((+i + +1) >= ranks.length){
-                break;
-            }
-            if(ranks[i].score == ranks[+i + +1].score){
-                console.log("tie detected: " + ranks[i].id + " and " + ranks[+i + +1].id);
-                $("."+ranks[i].id).text("change scores to break ties");
-                $("."+ranks[+i + +1].id).text("change scores to break ties");
-            }
-            
-        }
-        for(let i in ranks){ //ranking
-            if(ranks[i].given == undefined){        //no scores
-                $("."+ranks[i].id).text("rate this candidate"); 
-            }
-            //set rank number
-            if(!($("."+ranks[i].id).text() == "change scores to break ties" || $("."+ranks[i].id).text() == "rate this candidate")){
-                switch(+i + +1){
-                    case 1:
-                        $("."+ranks[i].id).text((+i + +1) + "st");
-                    break;
-                    case 2:
-                        $("."+ranks[i].id).text((+i + +1) + "nd");
-                    break;
-                    case 3:
-                        $("."+ranks[i].id).text((+i + +1) + "rd");
-                    break;
-                    default:
-                        $("."+ranks[i].id).text((+i + +1) + "th");
-                }
             }
         }
     })
     .catch(error=>{console.error(error)});
 }
 
-let loadGown = function(){          //gown
+//gown
+let loadGown = function(){
     $(".contestantsContainer").empty();
-    //add loading screen
-
-    //fetch data from database
+    
     fetch("./php/getContestantsGown.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
-        }
+        } 
     })
     .then(res=>{return res.json()})
     .then(data=>{
         console.log(data);
-        //array to hold ranks data to check for ties and null scores
-        let ranks = [];
         for(let i in data){
-            //set ranking and total score earned on cards
-            ranks.push({id: "standing"+data[i].contestantID, score: data[i].totalGownScore, given: data[i].gownScore});
-            let ttps = null;
-            if(data[i].totalGownScore == null){
-                ttps = 0;
-            }else{
-                ttps = data[i].totalGownScore;
-            }
-            
             //load data to DOM
             let elem = `
                 <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
                     <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
-                    <span class="totalScoreEarned">Total Score Earned: `+ttps+`% out of 100%</span>
                     <div class="scorePanel">
                         <label for="score">Score</label>
                         <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
@@ -358,83 +254,40 @@ let loadGown = function(){          //gown
                     </div>
                 </div>
             `;
+            //append to DOM
             $(".contestantsContainer").append(elem);
             $("#contestant"+data[i].contestantID).fadeIn();
             if(data[i].gownScore == null){
-                $("#tps" + data[i].contestantID).val("0");
+                $(".standing"+data[i].contestantID).text("rate this contestant")
             }else{
-                $("#tps" + data[i].contestantID).val(data[i].gownScore);
+                $("#tps"+data[i].contestantID).val(data[i].gownScore);
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
-            }
-        }
-        //determine ranking
-        for(let i in ranks){                //ties
-            if((+i + +1) >= ranks.length){
-                break;
-            }
-            if(ranks[i].score == ranks[+i + +1].score){
-                console.log("tie detected: " + ranks[i].id + " and " + ranks[+i + +1].id);
-                $("."+ranks[i].id).text("change scores to break ties");
-                $("."+ranks[+i + +1].id).text("change scores to break ties");
-            }
-        }
-        for(let i in ranks){ //ranking
-            if(ranks[i].given == undefined){    //no scores
-                $("."+ranks[i].id).text("rate this candidate"); 
-            }
-            //set rank number
-            if(!($("."+ranks[i].id).text() == "change scores to break ties" || $("."+ranks[i].id).text() == "rate this candidate")){
-                switch(+i + +1){
-                    case 1:
-                        $("."+ranks[i].id).text((+i + +1) + "st");
-                    break;
-                    case 2:
-                        $("."+ranks[i].id).text((+i + +1) + "nd");
-                    break;
-                    case 3:
-                        $("."+ranks[i].id).text((+i + +1) + "rd");
-                    break;
-                    default:
-                        $("."+ranks[i].id).text((+i + +1) + "th");
-                }
             }
         }
     })
     .catch(error=>{console.error(error)});
 }
 
-let loadQnA = function(){                       //QnA
+//QnA
+let loadQnA = function(){
     $(".contestantsContainer").empty();
-    //add loading screen
-
-    //fetch data from database
+    
     fetch("./php/getContestantsQnA.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
-        }
+        } 
     })
     .then(res=>{return res.json()})
     .then(data=>{
         console.log(data);
-        //array to hold ranks data to check for ties and null scores
-        let ranks = [];
         for(let i in data){
-            //set ranking and total score earned on cards
-            ranks.push({id: "standing"+data[i].contestantID, score: data[i].totalQnAScore, given: data[i].qnAScore});
-            let ttps = null;
-            if(data[i].totalQnAScore == null){
-                ttps = 0;
-            }else{
-                ttps = data[i].totalQnAScore;
-            }
             //load data to DOM
             let elem = `
                 <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
                     <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
-                    <span class="totalScoreEarned">Total Score Earned: `+ttps+`% out of 100%</span>
                     <div class="scorePanel">
                         <label for="score">Score</label>
                         <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
@@ -457,56 +310,23 @@ let loadQnA = function(){                       //QnA
                     </div>
                 </div>
             `;
+            //append to DOM
             $(".contestantsContainer").append(elem);
             $("#contestant"+data[i].contestantID).fadeIn();
             if(data[i].qnAScore == null){
-                $("#tps" + data[i].contestantID).val("0");
+                $(".standing"+data[i].contestantID).text("rate this contestant")
             }else{
-                $("#tps" + data[i].contestantID).val(data[i].qnAScore);
+                $("#tps"+data[i].contestantID).val(data[i].qnAScore);
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
-            }
-        }
-        //determine ranking
-        for(let i in ranks){                //ties
-            if((+i + +1) >= ranks.length){
-                break;
-            }
-            if(ranks[i].score == ranks[+i + +1].score){
-                console.log("tie detected: " + ranks[i].id + " and " + ranks[+i + +1].id);
-                $("."+ranks[i].id).text("change scores to break ties");
-                $("."+ranks[+i + +1].id).text("change scores to break ties");
-            }
-        }
-        for(let i in ranks){ //ranking
-            if(ranks[i].given == undefined){    //no scores
-                $("."+ranks[i].id).text("rate this candidate"); 
-            }
-            //set rank number
-            if(!($("."+ranks[i].id).text() == "change scores to break ties" || $("."+ranks[i].id).text() == "rate this candidate")){
-                switch(+i + +1){
-                    case 1:
-                        $("."+ranks[i].id).text((+i + +1) + "st");
-                    break;
-                    case 2:
-                        $("."+ranks[i].id).text((+i + +1) + "nd");
-                    break;
-                    case 3:
-                        $("."+ranks[i].id).text((+i + +1) + "rd");
-                    break;
-                    default:
-                        $("."+ranks[i].id).text((+i + +1) + "th");
-                }
             }
         }
     })
     .catch(error=>{console.error(error)});
 }
 
-let loadTop5 = function(){      //top5 section
+let loadTop5 = function(){
     $(".contestantsContainer").empty();
-    //add loading screen
-
-    //fetch data from database
+    
     fetch("./php/getContestantsTop5.php", {
         method: "POST",
         headers: {
@@ -516,54 +336,111 @@ let loadTop5 = function(){      //top5 section
     .then(res=>{return res.json()})
     .then(data=>{
         console.log(data);
-
-        //append to DOM
-        for(let i in data)
-        {
-            let tps = 0, sws = 0, gs = 0, qnas = 0, avgc = 0, total = 0;
-            if(data[i].totalTalentPortionScore != null){
-                tps = data[i].totalTalentPortionScore;
+        for(let i in data){
+            if(data[i].totalScore == null){
+                continue;
             }
-            if(data[i].totalSwimWearScore != null){
-                sws = data[i].totalSwimWearScore;
-                avgc += 1;
-            }
-            if(data[i].totalGownScore != null){
-                gs = data[i].totalGownScore;
-                avgc += 1;
-            }
-            if(data[i].totalQnAScore != null){
-                qnas = data[i].totalQnAScore;
-                avgc += 1;
-            }
-            if(sws == 0 || gs == 0 || qnas == 0){
-                total = "incomplete scores";
-            }else{
-                total = ((((+sws + +gs + +qnas)/+avgc)).toFixed(2)) + '%';
-            }
+            //load data to DOM
             let elem = `
-                <div class="contestant selection" id="contestant`+data[i].contestantID+`" style="display: none">
-                    <div><span class="standing">`+i+`<span></div>
+                <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
+                    <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
-
-                    <span class="score tps">Talent Portion: `+tps+`%</span>
-
-                    <span class="score sws">Swim Wear: `+sws+`%</span>
-                    <span class="score gs">Gown: `+gs+`%</span>
-                    <span class="score qnas">QnA: `+qnas+`%</span>
-                    <span class="score total">Total: `+total+`</span>
+                    <div class="scorePanel">
+                        <label for="score">Score</label>
+                        <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
+                        onchange="selectScore(`+data[i].contestantID+`, 'top5', `+data[i].top5+`)">
+                            <option value="0">select</option>
+                            <option value="5">5</option>
+                            <option value="5.5">5.5</option>
+                            <option value="6">6</option>
+                            <option value="6.5">6.5</option>
+                            <option value="7">7</option>
+                            <option value="7.5">7.5</option>
+                            <option value="8">8</option>
+                            <option value="8.5">8.5</option>
+                            <option value="9">9</option>
+                            <option value="9.5">9.5</option>
+                            <option value="10">10</option>
+                        </select>
+                        <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
+                        onclick="editScore(`+data[i].contestantID+`)">
+                    </div>
                 </div>
             `;
+            //append to DOM
             $(".contestantsContainer").append(elem);
             $("#contestant"+data[i].contestantID).fadeIn();
+            if(data[i].top5 == null){
+                $(".standing"+data[i].contestantID).text("rate this contestant")
+            }else{
+                $("#tps"+data[i].contestantID).val(data[i].top5);
+                $("#tps" + data[i].contestantID).attr({disabled: "true"});
+            }
         }
     })
     .catch(error=>{console.error(error)});
 }
 
-//on edit icon click
-let editScore = function(id){
+let loadTop3 = function(){
+    $(".contestantsContainer").empty();
+    
+    fetch("./php/getContestantsTop3.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(res=>{return res.json()})
+    .then(data=>{
+        console.log(data);
+        for(let i in data){
+            if(data[i].totalScore == null){
+                continue;
+            }
+            //load data to DOM
+            let elem = `
+                <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
+                    <div><span class="standing standing`+data[i].contestantID+`"><span></div>
+                    <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
+                    <span class="contestantName">`+data[i].contestantName+`</span>
+                    <div class="scorePanel">
+                        <label for="score">Score</label>
+                        <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
+                        onchange="selectScore(`+data[i].contestantID+`, 'top3', `+data[i].top3+`)">
+                            <option value="0">select</option>
+                            <option value="5">5</option>
+                            <option value="5.5">5.5</option>
+                            <option value="6">6</option>
+                            <option value="6.5">6.5</option>
+                            <option value="7">7</option>
+                            <option value="7.5">7.5</option>
+                            <option value="8">8</option>
+                            <option value="8.5">8.5</option>
+                            <option value="9">9</option>
+                            <option value="9.5">9.5</option>
+                            <option value="10">10</option>
+                        </select>
+                        <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
+                        onclick="editScore(`+data[i].contestantID+`)">
+                    </div>
+                </div>
+            `;
+            //append to DOM
+            $(".contestantsContainer").append(elem);
+            $("#contestant"+data[i].contestantID).fadeIn();
+            if(data[i].top3 == null){
+                $(".standing"+data[i].contestantID).text("rate this contestant")
+            }else{
+                $("#tps"+data[i].contestantID).val(data[i].top3);
+                $("#tps" + data[i].contestantID).attr({disabled: "true"});
+            }
+        }
+    })
+    .catch(error=>{console.error(error)});
+}
+
+let editScore = function(id){                       //edit icon on cards
     if($("#tps"+id).prop('disabled') == true){
         $("#tps"+id).prop('disabled', false);
     }else{
@@ -577,7 +454,7 @@ let editScore = function(id){
 }
 
 //on selecting score
-let selectScore = function(id, to, ls){
+let selectScore = function(id, to, ls){         //adding and editing scores
     console.log(id);
     console.log($("#tps"+id).val());
     console.log(to);
@@ -636,6 +513,9 @@ let reloadCards = function(ev){
         break;
         case "top5":
             loadTop5();
+        break;
+        case "top3":
+            loadTop3();
         break;
     }
 }

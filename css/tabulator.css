@@ -2,9 +2,6 @@ html, body{
     margin: 0;
     padding: 0;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* background-image: url(../resources/stacked-peaks-haikei.svg);
-    background-repeat: no-repeat;
-    background-size: cover; */
 }
 
 .container{
@@ -23,7 +20,6 @@ html, body{
     margin-left: 40px;
     flex: 1;
     color: #4834c9;
-    /* text-shadow: -1px -1px 0 #5f5f5f, 1px -1px 0 #5f5f5f, -1px 1px 0 #5f5f5f, 1px 1px 0 #5f5f5f; */
     font-size: 40px;
 }
 
@@ -41,6 +37,7 @@ html, body{
     min-height: 100px;
     border-radius: 10px;
     z-index: 500;
+
 }
 
 .header .profileContainer:hover .profileDropdown{
@@ -115,7 +112,7 @@ html, body{
     flex: 1;
 }
 
-.content .contestantsContainer{
+.content .tallyContainer{
     margin: 5px 20px;
     background: rgba(255, 255, 255, 0.192);
     box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
@@ -125,17 +122,78 @@ html, body{
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     min-height: 90vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-wrap: wrap;
 }
 
-.content .contestantsContainer .selection{
-    cursor: pointer;
+.tabulator{
+    display: flex;
+    padding: 20px;
+    overflow-x: hidden;
+    flex-wrap: wrap;
 }
 
-.content .contestantsContainer .selection:hover{
-    color: #fff;
-    background-color: rgba(72, 52, 201);
-    box-shadow: 0 100px 100px 0 rgba(226, 226, 232, 0.856);
+.rowContainer{
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    max-width: 85vw;
+    background: rgba(255, 255, 255, 0.192);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.cell{
+    padding: 10px 5px;
+    flex: 1;
+    text-align: center;
+    min-width: 100px;
+}
+
+.cname{
+    font-weight: bold;
+    position: sticky;
+    left: 0;
+    background: rgba(255, 255, 255, 0.937) !important;
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+}
+
+.crank{
+    font-weight: bold;
+    position: sticky;
+    right: 0;
+    background: rgba(255, 255, 255, 0.937) !important;
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+}
+
+.footer{
+    height: 200px;
+}
+
+.content .tabulator .contestant{
+    background: rgba(255, 255, 255, 0.353);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    height: 340px;
+    width: 200px;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .content .contestantsContainer .contestant{
@@ -177,41 +235,6 @@ html, body{
     font-size: 0.7em;
 }
 
-.contestant .scorePanel{
-    margin-top: auto;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    height: 30px;
-}
-
-.contestant label{
-    margin-left: 10px;
-    margin-right: 5px;
-}
-
-.contestant select{
-    font-size: 1.2em;
-    border-radius: 5px;
-    border: none;
-    background-color: rgb(72, 52, 201);
-    color: #fff;
-    padding: 2px 5px;
-    margin-left: 10px;
-}
-
-.contestant .edit{
-    height: 20px;
-    width: 20px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.contestant .edit:hover{
-    height: 25px;
-    width: 25px;
-}
-
 .contestant .score{
     font-size: 0.8em;
     margin-left: 10px;
@@ -223,10 +246,6 @@ html, body{
 
 .contestant .total{
     font-weight: bold;
-}
-
-.footer{
-    height: 200px;
 }
 
 @media (max-width: 550px){
@@ -243,7 +262,12 @@ html, body{
     #subEventName{
         font-size: 20px !important;
     }
-    .contestantsContainer{
+    .tabulator{
         justify-content: center;
+        font-size: 0.7em !important;
+       max-width: 80vw;
+    }
+    .cell{
+        min-width: 50px;
     }
 }
