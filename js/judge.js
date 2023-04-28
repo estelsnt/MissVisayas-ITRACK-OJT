@@ -6,8 +6,9 @@ let selected = [];
 $(window).on("load", ()=>{
     //default display
     subEventSelected = "talentportion"
-    $("#subEventName").text("Talent Portion");
+    $("#subEventName").text("Production number");
     $(".talentPortion").css({backgroundColor: "rgb(72, 52, 201)", color: "#fff"});
+    //checkLock();
     //get user's name
     fetch("./php/getUserData.php", {
         method: "POST",
@@ -126,15 +127,55 @@ let loadTalentPortion = function(){
                         onchange="selectScore(`+data[i].contestantID+`, 'talentportion', `+data[i].talentPortionScore+`)">
                             <option value="0">select</option>
                             <option value="5">5</option>
+                            <option value="5.1">5.1</option>
+                            <option value="5.2">5.2</option>
+                            <option value="5.3">5.3</option>
+                            <option value="5.4">5.4</option>
                             <option value="5.5">5.5</option>
+                            <option value="5.6">5.6</option>
+                            <option value="5.7">5.7</option>
+                            <option value="5.8">5.8</option>
+                            <option value="5.9">5.9</option>
                             <option value="6">6</option>
+                            <option value="6.1">6.1</option>
+                            <option value="6.2">6.2</option>
+                            <option value="6.3">6.3</option>
+                            <option value="6.4">6.4</option>
                             <option value="6.5">6.5</option>
+                            <option value="6.6">6.6</option>
+                            <option value="6.7">6.7</option>
+                            <option value="6.8">6.8</option>
+                            <option value="6.9">6.9</option>
                             <option value="7">7</option>
+                            <option value="7.1">7.1</option>
+                            <option value="7.2">7.2</option>
+                            <option value="7.3">7.3</option>
+                            <option value="7.4">7.4</option>
                             <option value="7.5">7.5</option>
+                            <option value="7.6">7.6</option>
+                            <option value="7.7">7.7</option>
+                            <option value="7.8">7.8</option>
+                            <option value="7.9">7.9</option>
                             <option value="8">8</option>
+                            <option value="8.1">8.1</option>
+                            <option value="8.2">8.2</option>
+                            <option value="8.3">8.3</option>
+                            <option value="8.4">8.4</option>
                             <option value="8.5">8.5</option>
+                            <option value="8.6">8.6</option>
+                            <option value="8.7">8.7</option>
+                            <option value="8.8">8.8</option>
+                            <option value="8.9">8.9</option>
                             <option value="9">9</option>
+                            <option value="9.1">9.1</option>
+                            <option value="9.2">9.2</option>
+                            <option value="9.3">9.3</option>
+                            <option value="9.4">9.4</option>
                             <option value="9.5">9.5</option>
+                            <option value="9.6">9.6</option>
+                            <option value="9.7">9.7</option>
+                            <option value="9.8">9.8</option>
+                            <option value="9.9">9.9</option>
                             <option value="10">10</option>
                         </select>
                         <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
@@ -152,6 +193,7 @@ let loadTalentPortion = function(){
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
             }
         }
+        checkLock();
     })
     .catch(error=>{console.error(error)});
 }
@@ -180,18 +222,58 @@ let loadSwimWear = function(){
                         <label for="score">Score</label>
                         <select name="score" class="scoreSelect" id="tps`+data[i].contestantID+`" 
                         onchange="selectScore(`+data[i].contestantID+`, 'swimwear', `+data[i].swimWearScore+`)">
-                            <option value="0">select</option>
-                            <option value="5">5</option>
-                            <option value="5.5">5.5</option>
-                            <option value="6">6</option>
-                            <option value="6.5">6.5</option>
-                            <option value="7">7</option>
-                            <option value="7.5">7.5</option>
-                            <option value="8">8</option>
-                            <option value="8.5">8.5</option>
-                            <option value="9">9</option>
-                            <option value="9.5">9.5</option>
-                            <option value="10">10</option>
+                        <option value="0">select</option>
+                        <option value="5">5</option>
+                        <option value="5.1">5.1</option>
+                        <option value="5.2">5.2</option>
+                        <option value="5.3">5.3</option>
+                        <option value="5.4">5.4</option>
+                        <option value="5.5">5.5</option>
+                        <option value="5.6">5.6</option>
+                        <option value="5.7">5.7</option>
+                        <option value="5.8">5.8</option>
+                        <option value="5.9">5.9</option>
+                        <option value="6">6</option>
+                        <option value="6.1">6.1</option>
+                        <option value="6.2">6.2</option>
+                        <option value="6.3">6.3</option>
+                        <option value="6.4">6.4</option>
+                        <option value="6.5">6.5</option>
+                        <option value="6.6">6.6</option>
+                        <option value="6.7">6.7</option>
+                        <option value="6.8">6.8</option>
+                        <option value="6.9">6.9</option>
+                        <option value="7">7</option>
+                        <option value="7.1">7.1</option>
+                        <option value="7.2">7.2</option>
+                        <option value="7.3">7.3</option>
+                        <option value="7.4">7.4</option>
+                        <option value="7.5">7.5</option>
+                        <option value="7.6">7.6</option>
+                        <option value="7.7">7.7</option>
+                        <option value="7.8">7.8</option>
+                        <option value="7.9">7.9</option>
+                        <option value="8">8</option>
+                        <option value="8.1">8.1</option>
+                        <option value="8.2">8.2</option>
+                        <option value="8.3">8.3</option>
+                        <option value="8.4">8.4</option>
+                        <option value="8.5">8.5</option>
+                        <option value="8.6">8.6</option>
+                        <option value="8.7">8.7</option>
+                        <option value="8.8">8.8</option>
+                        <option value="8.9">8.9</option>
+                        <option value="9">9</option>
+                        <option value="9.1">9.1</option>
+                        <option value="9.2">9.2</option>
+                        <option value="9.3">9.3</option>
+                        <option value="9.4">9.4</option>
+                        <option value="9.5">9.5</option>
+                        <option value="9.6">9.6</option>
+                        <option value="9.7">9.7</option>
+                        <option value="9.8">9.8</option>
+                        <option value="9.9">9.9</option>
+                        <option value="10">10</option>
                         </select>
                         <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
                         onclick="editScore(`+data[i].contestantID+`)">
@@ -208,6 +290,7 @@ let loadSwimWear = function(){
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
             }
         }
+        checkLock();
     })
     .catch(error=>{console.error(error)});
 }
@@ -238,15 +321,55 @@ let loadGown = function(){
                         onchange="selectScore(`+data[i].contestantID+`, 'gown', `+data[i].gownScore+`)">
                             <option value="0">select</option>
                             <option value="5">5</option>
+                            <option value="5.1">5.1</option>
+                            <option value="5.2">5.2</option>
+                            <option value="5.3">5.3</option>
+                            <option value="5.4">5.4</option>
                             <option value="5.5">5.5</option>
+                            <option value="5.6">5.6</option>
+                            <option value="5.7">5.7</option>
+                            <option value="5.8">5.8</option>
+                            <option value="5.9">5.9</option>
                             <option value="6">6</option>
+                            <option value="6.1">6.1</option>
+                            <option value="6.2">6.2</option>
+                            <option value="6.3">6.3</option>
+                            <option value="6.4">6.4</option>
                             <option value="6.5">6.5</option>
+                            <option value="6.6">6.6</option>
+                            <option value="6.7">6.7</option>
+                            <option value="6.8">6.8</option>
+                            <option value="6.9">6.9</option>
                             <option value="7">7</option>
+                            <option value="7.1">7.1</option>
+                            <option value="7.2">7.2</option>
+                            <option value="7.3">7.3</option>
+                            <option value="7.4">7.4</option>
                             <option value="7.5">7.5</option>
+                            <option value="7.6">7.6</option>
+                            <option value="7.7">7.7</option>
+                            <option value="7.8">7.8</option>
+                            <option value="7.9">7.9</option>
                             <option value="8">8</option>
+                            <option value="8.1">8.1</option>
+                            <option value="8.2">8.2</option>
+                            <option value="8.3">8.3</option>
+                            <option value="8.4">8.4</option>
                             <option value="8.5">8.5</option>
+                            <option value="8.6">8.6</option>
+                            <option value="8.7">8.7</option>
+                            <option value="8.8">8.8</option>
+                            <option value="8.9">8.9</option>
                             <option value="9">9</option>
+                            <option value="9.1">9.1</option>
+                            <option value="9.2">9.2</option>
+                            <option value="9.3">9.3</option>
+                            <option value="9.4">9.4</option>
                             <option value="9.5">9.5</option>
+                            <option value="9.6">9.6</option>
+                            <option value="9.7">9.7</option>
+                            <option value="9.8">9.8</option>
+                            <option value="9.9">9.9</option>
                             <option value="10">10</option>
                         </select>
                         <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
@@ -264,6 +387,7 @@ let loadGown = function(){
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
             }
         }
+        checkLock();
     })
     .catch(error=>{console.error(error)});
 }
@@ -294,15 +418,55 @@ let loadQnA = function(){
                         onchange="selectScore(`+data[i].contestantID+`, 'qna', `+data[i].qnAScore+`)">
                             <option value="0">select</option>
                             <option value="5">5</option>
+                            <option value="5.1">5.1</option>
+                            <option value="5.2">5.2</option>
+                            <option value="5.3">5.3</option>
+                            <option value="5.4">5.4</option>
                             <option value="5.5">5.5</option>
+                            <option value="5.6">5.6</option>
+                            <option value="5.7">5.7</option>
+                            <option value="5.8">5.8</option>
+                            <option value="5.9">5.9</option>
                             <option value="6">6</option>
+                            <option value="6.1">6.1</option>
+                            <option value="6.2">6.2</option>
+                            <option value="6.3">6.3</option>
+                            <option value="6.4">6.4</option>
                             <option value="6.5">6.5</option>
+                            <option value="6.6">6.6</option>
+                            <option value="6.7">6.7</option>
+                            <option value="6.8">6.8</option>
+                            <option value="6.9">6.9</option>
                             <option value="7">7</option>
+                            <option value="7.1">7.1</option>
+                            <option value="7.2">7.2</option>
+                            <option value="7.3">7.3</option>
+                            <option value="7.4">7.4</option>
                             <option value="7.5">7.5</option>
+                            <option value="7.6">7.6</option>
+                            <option value="7.7">7.7</option>
+                            <option value="7.8">7.8</option>
+                            <option value="7.9">7.9</option>
                             <option value="8">8</option>
+                            <option value="8.1">8.1</option>
+                            <option value="8.2">8.2</option>
+                            <option value="8.3">8.3</option>
+                            <option value="8.4">8.4</option>
                             <option value="8.5">8.5</option>
+                            <option value="8.6">8.6</option>
+                            <option value="8.7">8.7</option>
+                            <option value="8.8">8.8</option>
+                            <option value="8.9">8.9</option>
                             <option value="9">9</option>
+                            <option value="9.1">9.1</option>
+                            <option value="9.2">9.2</option>
+                            <option value="9.3">9.3</option>
+                            <option value="9.4">9.4</option>
                             <option value="9.5">9.5</option>
+                            <option value="9.6">9.6</option>
+                            <option value="9.7">9.7</option>
+                            <option value="9.8">9.8</option>
+                            <option value="9.9">9.9</option>
                             <option value="10">10</option>
                         </select>
                         <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
@@ -320,6 +484,7 @@ let loadQnA = function(){
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
             }
         }
+        checkLock();
     })
     .catch(error=>{console.error(error)});
 }
@@ -337,12 +502,12 @@ let loadTop5 = function(){
     .then(data=>{
         console.log(data);
         for(let i in data){
-            if(data[i].totalScore == null){
+            if(data[i].totalScore == 0.00){
                 continue;
             }
             //load data to DOM
             let elem = `
-                <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
+                <div class="contestant tohide" id="contestant`+data[i].contestantID+`" style="display: none">
                     <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
@@ -352,15 +517,55 @@ let loadTop5 = function(){
                         onchange="selectScore(`+data[i].contestantID+`, 'top5', `+data[i].top5+`)">
                             <option value="0">select</option>
                             <option value="5">5</option>
+                            <option value="5.1">5.1</option>
+                            <option value="5.2">5.2</option>
+                            <option value="5.3">5.3</option>
+                            <option value="5.4">5.4</option>
                             <option value="5.5">5.5</option>
+                            <option value="5.6">5.6</option>
+                            <option value="5.7">5.7</option>
+                            <option value="5.8">5.8</option>
+                            <option value="5.9">5.9</option>
                             <option value="6">6</option>
+                            <option value="6.1">6.1</option>
+                            <option value="6.2">6.2</option>
+                            <option value="6.3">6.3</option>
+                            <option value="6.4">6.4</option>
                             <option value="6.5">6.5</option>
+                            <option value="6.6">6.6</option>
+                            <option value="6.7">6.7</option>
+                            <option value="6.8">6.8</option>
+                            <option value="6.9">6.9</option>
                             <option value="7">7</option>
+                            <option value="7.1">7.1</option>
+                            <option value="7.2">7.2</option>
+                            <option value="7.3">7.3</option>
+                            <option value="7.4">7.4</option>
                             <option value="7.5">7.5</option>
+                            <option value="7.6">7.6</option>
+                            <option value="7.7">7.7</option>
+                            <option value="7.8">7.8</option>
+                            <option value="7.9">7.9</option>
                             <option value="8">8</option>
+                            <option value="8.1">8.1</option>
+                            <option value="8.2">8.2</option>
+                            <option value="8.3">8.3</option>
+                            <option value="8.4">8.4</option>
                             <option value="8.5">8.5</option>
+                            <option value="8.6">8.6</option>
+                            <option value="8.7">8.7</option>
+                            <option value="8.8">8.8</option>
+                            <option value="8.9">8.9</option>
                             <option value="9">9</option>
+                            <option value="9.1">9.1</option>
+                            <option value="9.2">9.2</option>
+                            <option value="9.3">9.3</option>
+                            <option value="9.4">9.4</option>
                             <option value="9.5">9.5</option>
+                            <option value="9.6">9.6</option>
+                            <option value="9.7">9.7</option>
+                            <option value="9.8">9.8</option>
+                            <option value="9.9">9.9</option>
                             <option value="10">10</option>
                         </select>
                         <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
@@ -378,6 +583,7 @@ let loadTop5 = function(){
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
             }
         }
+        checkLock();
     })
     .catch(error=>{console.error(error)});
 }
@@ -391,16 +597,16 @@ let loadTop3 = function(){
             "Content-Type": "application/json"
         }
     })
-    .then(res=>{return res.json()})
+    .then(res=>{return res.json()}) 
     .then(data=>{
         console.log(data);
         for(let i in data){
-            if(data[i].totalScore == null){
+            if(data[i].totalScore == 0.00){
                 continue;
             }
             //load data to DOM
             let elem = `
-                <div class="contestant" id="contestant`+data[i].contestantID+`" style="display: none">
+                <div class="contestant tohide" id="contestant`+data[i].contestantID+`" style="display: none">
                     <div><span class="standing standing`+data[i].contestantID+`"><span></div>
                     <img src="resources/contestant.PNG" alt="contestant" class="contestantPic">
                     <span class="contestantName">`+data[i].contestantName+`</span>
@@ -410,15 +616,55 @@ let loadTop3 = function(){
                         onchange="selectScore(`+data[i].contestantID+`, 'top3', `+data[i].top3+`)">
                             <option value="0">select</option>
                             <option value="5">5</option>
+                            <option value="5.1">5.1</option>
+                            <option value="5.2">5.2</option>
+                            <option value="5.3">5.3</option>
+                            <option value="5.4">5.4</option>
                             <option value="5.5">5.5</option>
+                            <option value="5.6">5.6</option>
+                            <option value="5.7">5.7</option>
+                            <option value="5.8">5.8</option>
+                            <option value="5.9">5.9</option>
                             <option value="6">6</option>
+                            <option value="6.1">6.1</option>
+                            <option value="6.2">6.2</option>
+                            <option value="6.3">6.3</option>
+                            <option value="6.4">6.4</option>
                             <option value="6.5">6.5</option>
+                            <option value="6.6">6.6</option>
+                            <option value="6.7">6.7</option>
+                            <option value="6.8">6.8</option>
+                            <option value="6.9">6.9</option>
                             <option value="7">7</option>
+                            <option value="7.1">7.1</option>
+                            <option value="7.2">7.2</option>
+                            <option value="7.3">7.3</option>
+                            <option value="7.4">7.4</option>
                             <option value="7.5">7.5</option>
+                            <option value="7.6">7.6</option>
+                            <option value="7.7">7.7</option>
+                            <option value="7.8">7.8</option>
+                            <option value="7.9">7.9</option>
                             <option value="8">8</option>
+                            <option value="8.1">8.1</option>
+                            <option value="8.2">8.2</option>
+                            <option value="8.3">8.3</option>
+                            <option value="8.4">8.4</option>
                             <option value="8.5">8.5</option>
+                            <option value="8.6">8.6</option>
+                            <option value="8.7">8.7</option>
+                            <option value="8.8">8.8</option>
+                            <option value="8.9">8.9</option>
                             <option value="9">9</option>
+                            <option value="9.1">9.1</option>
+                            <option value="9.2">9.2</option>
+                            <option value="9.3">9.3</option>
+                            <option value="9.4">9.4</option>
                             <option value="9.5">9.5</option>
+                            <option value="9.6">9.6</option>
+                            <option value="9.7">9.7</option>
+                            <option value="9.8">9.8</option>
+                            <option value="9.9">9.9</option>
                             <option value="10">10</option>
                         </select>
                         <img src="resources/edit.png" alt="/" class="edit" id="edit`+data[i].contestantID+`" 
@@ -436,11 +682,15 @@ let loadTop3 = function(){
                 $("#tps" + data[i].contestantID).attr({disabled: "true"});
             }
         }
+        checkLock();
     })
     .catch(error=>{console.error(error)});
 }
 
 let editScore = function(id){                       //edit icon on cards
+    if($("#tps"+id).val() == 0){
+        return;
+    }
     if($("#tps"+id).prop('disabled') == true){
         $("#tps"+id).prop('disabled', false);
     }else{
@@ -519,3 +769,39 @@ let reloadCards = function(ev){
         break;
     }
 }
+
+let checkLock = function(){
+    $("#lock").text("Lock");
+    fetch("./php/checkLock.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            subevent: subEventSelected
+        })                
+    })
+    .then(res=>{return res.json()})
+    .then(data=>{
+        console.log(data);
+        if(data[0].eventLockID != 0){
+            $("#subEventName").text($("#subEventName").text() + "/LOCKED");
+            $(".edit").css({display: "none"});
+            $(".scoreSelect").prop("disabled", true);
+            $(".tohide").css({display: "none"});
+        }
+        else{
+            $(".edit").css({display: "block"});
+            $(".scoreSelect").each((index, element)=>{
+                console.log($(".scoreSelect:eq("+index+")").val());
+                if($(".scoreSelect:eq("+index+")").val() != 0){
+                    $(".scoreSelect").prop("disabled", true);
+                }else{
+                    $(".scoreSelect").prop("disabled", false);
+                }
+            }); 
+        }
+    })
+    .catch(error=>{console.error(error)});
+}
+

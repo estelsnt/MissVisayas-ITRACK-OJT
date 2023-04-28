@@ -21,8 +21,7 @@
                 FROM contestants
                 JOIN sub_event ON sub_event.subevent_id = contestants.subevent_id
                 JOIN main_event ON main_event.mainevent_id = sub_event.mainevent_id
-                WHERE main_event.event_name = 'MISS VISAYAS'
-                ORDER BY totalQnAScore DESC;";
+                WHERE main_event.event_name = 'MISS VISAYAS';";
     $result = $conn->query($query);
     $d = [];
     if($result->num_rows > 0){

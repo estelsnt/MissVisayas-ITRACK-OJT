@@ -8,40 +8,8 @@
                 SELECT 
                 contestants.contestant_id,
                 contestants.fullname,
-                (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id 
-                    AND mv_scores.sub_event_name = 'talentportion') AS 'totalTalentPortionScore',
-                (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id 
-                    AND mv_scores.sub_event_name = 'swimwear') AS 'totalSwimWearScore',
-                (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id 
-                    AND mv_scores.sub_event_name = 'gown') AS 'totalGownScore',
-                (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id 
-                    AND mv_scores.sub_event_name = 'qna') AS 'totalQnAScore',
-                (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id 
-                    AND mv_scores.sub_event_name = 'top5') AS 'totalTop5Score',
-                (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id 
-                    AND mv_scores.sub_event_name = 'top3') AS 'totalTop3Score',
                 ROUND(
                     IFNULL(
-                        (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                        WHERE mv_scores.contestant_id = contestants.contestant_id 
-                        AND mv_scores.sub_event_name = 'swimwear'), 0) +
-                        IFNULL(    
-                        (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                        WHERE mv_scores.contestant_id = contestants.contestant_id 
-                        AND mv_scores.sub_event_name = 'gown'), 0) +
-                        IFNULL(
-                        (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                        WHERE mv_scores.contestant_id = contestants.contestant_id 
-                        AND mv_scores.sub_event_name = 'qna') +
-                        (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
-                        WHERE mv_scores.contestant_id = contestants.contestant_id 
-                        AND mv_scores.sub_event_name = 'top5') +
                         (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
                         WHERE mv_scores.contestant_id = contestants.contestant_id 
                         AND mv_scores.sub_event_name = 'top3'),

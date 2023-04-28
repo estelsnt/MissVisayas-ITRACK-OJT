@@ -7,8 +7,9 @@ html, body{
 .container{
     min-height: 100vh;
     display: flex;
-    background: rgb(166,201,217);
-    background: linear-gradient(10deg, rgb(72, 52, 201) 0%, rgb(171, 162, 227) 36%, rgb(255, 255, 255) 100%);
+    background: linear-gradient(225deg, #cd82fa 0%, #80e1f9 100%);
+    /* background: rgb(166,201,217); */
+    /* background: linear-gradient(10deg, rgb(72, 52, 201) 0%, rgb(171, 162, 227) 36%, rgb(255, 255, 255) 100%); */
 }
 
 .container .header{
@@ -20,7 +21,9 @@ html, body{
 }
 
 .container .header h1{
-    font-size: 70px;
+    font-size: 50px;
+    text-align: center;
+    margin-left: 20px;
     font-weight: 600;
     color: rgb(77, 52, 201);
     background-clip: text;
@@ -109,7 +112,7 @@ html, body{
         flex: 1;
     }
     .container .header h1{
-        font-size: 30px;
+        font-size: 20px;
     }
     .container .header h2{
         font-size: 10px;

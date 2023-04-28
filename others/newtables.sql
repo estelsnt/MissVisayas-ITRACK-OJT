@@ -9,3 +9,9 @@ CREATE TABLE mv_scores(
     FOREIGN KEY(contestant_id) REFERENCES contestants(contestant_id),
     FOREIGN KEY(judge_id) REFERENCES judges(judge_id)
 );
+
+CREATE TABLE event_lock(
+    event_lock_id INT NOT NULL AUTO_INCREMENT,
+    sub_event_name VARCHAR(254),
+    PRIMARY KEY (event_lock_id)
+);

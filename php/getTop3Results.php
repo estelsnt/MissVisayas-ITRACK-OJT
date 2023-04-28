@@ -20,7 +20,7 @@
                 JOIN main_event ON main_event.mainevent_id = sub_event.mainevent_id
                 WHERE main_event.event_name = 'MISS VISAYAS'
                 ORDER BY totalScore DESC
-                LIMIT 5;     
+                LIMIT 3;     
      ";
     $result = $conn->query($query);
     $d = [];

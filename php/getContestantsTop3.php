@@ -8,19 +8,13 @@
                 SELECT 
                 contestants.contestant_id,
                 contestants.fullname,
-                (SELECT mv_scores.score FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id
-                    AND mv_scores.sub_event_name = 'swimwear' AND mv_scores.judge_id = ".$_SESSION['judgeID']." ) +
-                (SELECT mv_scores.score FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id
-                    AND mv_scores.sub_event_name = 'gown' AND mv_scores.judge_id = ".$_SESSION['judgeID']." ) +
-                (SELECT mv_scores.score FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id
-                    AND mv_scores.sub_event_name = 'qna' AND mv_scores.judge_id = ".$_SESSION['judgeID']." ) +
-                (SELECT mv_scores.score FROM mv_scores 
-                    WHERE mv_scores.contestant_id = contestants.contestant_id
-                    AND mv_scores.sub_event_name = 'top5' AND mv_scores.judge_id = ".$_SESSION['judgeID']." )
-                AS 'totalScore',
+                ROUND(
+                    IFNULL(
+                        (SELECT (ROUND(AVG(mv_scores.score), 2) * 10) FROM mv_scores 
+                        WHERE mv_scores.contestant_id = contestants.contestant_id 
+                        AND mv_scores.sub_event_name = 'top5'),
+                    0),
+                2) AS 'totalScore',
                 (SELECT mv_scores.score FROM mv_scores 
                 WHERE mv_scores.judge_id = ".$_SESSION['judgeID']." AND mv_scores.contestant_id = contestants.contestant_id AND mv_scores.sub_event_name = 'top3') AS 'top3'
                 FROM contestants

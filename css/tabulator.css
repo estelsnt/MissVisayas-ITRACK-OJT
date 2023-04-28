@@ -8,8 +8,9 @@ html, body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: rgb(166,201,217);
-    background: linear-gradient(10deg, #4834c9 0%, #8e82dc 36%, rgb(255, 255, 255) 100%);
+    background: linear-gradient(225deg, #cd82fa 0%, #80e1f9 100%);
+    /* background: rgb(166,201,217);
+    background: linear-gradient(10deg, #4834c9 0%, #8e82dc 36%, rgb(255, 255, 255) 100%); */
 }
 
 .container .header{
@@ -20,7 +21,7 @@ html, body{
     margin-left: 40px;
     flex: 1;
     color: #4834c9;
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .header .profileContainer{
@@ -37,7 +38,6 @@ html, body{
     min-height: 100px;
     border-radius: 10px;
     z-index: 500;
-
 }
 
 .header .profileContainer:hover .profileDropdown{
@@ -129,6 +129,7 @@ html, body{
 
 .tabulator{
     display: flex;
+    flex-direction: column;
     padding: 20px;
     overflow-x: hidden;
     flex-wrap: wrap;
@@ -158,6 +159,7 @@ html, body{
     flex: 1;
     text-align: center;
     min-width: 100px;
+    word-break: break-all;
 }
 
 .cname{
@@ -182,75 +184,73 @@ html, body{
     height: 200px;
 }
 
-.content .tabulator .contestant{
-    background: rgba(255, 255, 255, 0.353);
-    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
-    border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    height: 340px;
-    width: 200px;
-    margin: 10px 20px;
-    display: flex;
-    flex-direction: column;
+#lock{
+    font-size: 1.5em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #4834c9;
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
-.content .contestantsContainer .contestant{
-    background: rgba(255, 255, 255, 0.353);
-    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
-    border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    height: 260px;
-    width: 200px;
-    margin: 10px 20px;
-    display: flex;
-    flex-direction: column;
+.finalscore{
+    font-size: 1em !important;
 }
 
-.standing{
-    display: block;
-    font-size: 1em;
+.tp5resultshn{
+    margin-top: 20px;
     text-align: center;
+    display: block;
 }
 
-.contestant .contestantPic{
-    height: 150px;
-    width: 150px;
-    margin-left: 25px;
+.rowhn{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    display: block;
+}
+
+.tp5results{
+    display: flex;
+    flex-direction: column;
     margin-top: 5px;
+    min-width: 50vw;
+    background: rgba(255, 255, 255, 0.192);
+    box-shadow: 0 40px 50px 0 rgba(226, 226, 232, 0.37);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-.contestant .contestantName{
+.tp5row{
+    display: flex;
+    min-width: 50px;
+}
+
+.tp5col{
+    padding: 10px;
+    flex: 1;
+    word-break: break-all;
+}
+
+.tp5h{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #fff !important;
+}
+
+.tp5col span{
     display: block;
-    margin: 10px 20px;
-    font-size: 1em;
-}
-
-.contestant .totalScoreEarned{
-    display: block;
-    margin: 5px 10px;   
-    font-size: 0.7em;
-}
-
-.contestant .score{
-    font-size: 0.8em;
-    margin-left: 10px;
-}
-
-.contestant .tps{
-    margin-bottom: 5px;
-}
-
-.contestant .total{
-    font-weight: bold;
+    text-align: center;
 }
 
 @media (max-width: 550px){
     .header h1{
-        font-size: 2em !important;
+        font-size: 15px !important;
     }
     #user{
         height: 40px !important;
@@ -262,12 +262,21 @@ html, body{
     #subEventName{
         font-size: 20px !important;
     }
-    .tabulator{
+    .tabulator, .tp5resultscontainer{
         justify-content: center;
         font-size: 0.7em !important;
-       max-width: 80vw;
+        max-width: 80vw;
     }
     .cell{
         min-width: 50px;
+    }
+    .rowContainer{
+        max-width: 80vw;
+    }
+}
+
+@media (max-width: 450px){
+    .rowContainer{
+        max-width: 70vw;
     }
 }
